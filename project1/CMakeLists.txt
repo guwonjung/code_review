@@ -16,4 +16,4 @@ add_executable(runSolutionTests priority_queue_test_sol.cc priority_queue_sol.cc
 target_link_libraries(runSolutionTests ${GTEST_LIBRARIES} pthread)
 
 # Main executable
-add_executable(project1 main.cc priority_queue.cc)
+add_executable(project1 main.cc)
