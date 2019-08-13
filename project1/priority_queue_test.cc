@@ -1,56 +1,51 @@
-#include "priority_queue.h"
 #include <gtest/gtest.h>
 
-// TEST(testCaseName, testName){
-//   ... test body ...
-// }
+#include "priority_queue.h"
 
+static void InitializeTEST(const TemplatePriorityQueue<int> &exp_target) {
+  ASSERT_TRUE(exp_target.empty());
+}
 
-TEST(PriorityQueueTest,Trivial){
-	templatePriorityQueue<int> expTarget;
+static void PushTEST(const TemplatePriorityQueue<int> &exp_target) {
+  exp_target.push(1);
+  exp_target.push(4);
+  exp_target.push(2);
+  exp_target.push(3);
+  exp_target.push(8);
+  exp_target.push(5);
 
-	//Test 1 - Initalize
-	ASSERT_TRUE(expTarget.empty()); // empty test
+  ASSERT_EQ(exp_target.size(), 6); // Pushed 6 elements
+  ASSERT_EQ(exp_target.top(), 8);  // The highest pushed value is 8
+  ASSERT_FALSE(exp_target.empty()); // it must not empty
+}
 
-	//Test 2 - Push Datas and Top size
-	expTarget.push(1);
-	expTarget.push(4);
-	expTarget.push(2);
-	expTarget.push(3);
-	expTarget.push(8);
-	expTarget.push(5);
-	
-	ASSERT_EQ(expTarget.size(),6); // Pushed 6 elements
-	ASSERT_EQ(expTarget.top(),8);  // The highest pushed value is 8
-	ASSERT_FALSE(expTarget.empty()); // it must not empty
+static void PopTEST(const TemplatePriorityQueue<int> &exp_target) {
+  exp_target.pop();
+  exp_target.pop();
+  exp_target.pop();
 
-	//Test 3 - pop test
+  ASSERT_EQ(exp_target.top(), 3); // The highest remain value is 3
+  ASSERT_EQ(exp_target.size(), 3); // Popped 3 elements from 6
+  ASSERT_FALSE(exp_target.empty()); // it must not empty
 
-	expTarget.pop();
-	expTarget.pop();
-	expTarget.pop();
-	
-	ASSERT_EQ(expTarget.top(),3);
-	ASSERT_EQ(expTarget.size(),3);
-	ASSERT_FALSE(expTarget.empty());
+  exp_target.pop();
+  exp_target.pop();
+  exp_target.pop();
 
-	expTarget.pop();
-	expTarget.pop();
-	expTarget.pop();
-	
-	ASSERT_TRUE(expTarget.empty());
-	
-	/* Fail Example - If you activate this code, Test will be fail *
+  ASSERT_TRUE(exp_target.empty()); // it must be empty
+}
 
-	expTarget.pop();
-	
-	EXPECT_TRUE(expTarget.empty()); // non-Fatal Failure - not terminate this test case when result of empty method is false.
-	ASSERT_EQ(expTarget.size(),0);
-        /**/
-	
+TEST(PriorityQueueTest, Trivial) {
+  TemplatePriorityQueue<int> exp_target;
+
+  InitializeTEST(exp_target);
+
+  PushTEST(exp_target);
+
+  PopTEST(exp_target);
 }
 
 int main(int argc, char **argv) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
